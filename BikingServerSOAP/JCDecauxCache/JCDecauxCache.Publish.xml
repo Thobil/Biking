@@ -1,0 +1,9 @@
+<publishData>
+  <publishTarget publishUrl="C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\">
+    <file relUrl="JCDecauxCache.CacheJCDecaux.svc" publishTime="11/18/2022 23:39:17" />
+    <file relUrl="bin/JCDecauxCache.dll.config" publishTime="11/16/2022 16:09:02" />
+    <file relUrl="bin/JCDecauxCache.dll" publishTime="11/18/2022 23:39:14" />
+    <file relUrl="Web.config" publishTime="11/16/2022 16:09:02" />
+    <file relUrl="bin/JCDecauxCache.pdb" publishTime="11/18/2022 23:39:14" />
+  </publishTarget>
+</publishData>

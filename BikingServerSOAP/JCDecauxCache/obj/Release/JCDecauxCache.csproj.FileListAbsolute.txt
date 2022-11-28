@@ -1,0 +1,7 @@
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\JCDecauxCache\bin\Release\JCDecauxCache.dll.config
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\JCDecauxCache\bin\Release\JCDecauxCache.dll
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\JCDecauxCache\bin\Release\JCDecauxCache.pdb
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\JCDecauxCache\obj\Release\JCDecauxCache.csproj.AssemblyReference.cache
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\JCDecauxCache\obj\Release\JCDecauxCache.csproj.CoreCompileInputs.cache
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\JCDecauxCache\obj\Release\JCDecauxCache.dll
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\JCDecauxCache\obj\Release\JCDecauxCache.pdb

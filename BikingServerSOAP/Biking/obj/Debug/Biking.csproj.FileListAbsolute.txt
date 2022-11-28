@@ -1,0 +1,8 @@
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\obj\Debug\Biking.csproj.AssemblyReference.cache
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\obj\Debug\Biking.csproj.CoreCompileInputs.cache
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\obj\Debug\XsdGeneratedCode\GeneratedXsdTypes.cs
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\bin\Debug\Biking.dll.config
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\bin\Debug\Biking.dll
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\bin\Debug\Biking.pdb
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\obj\Debug\Biking.dll
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\obj\Debug\Biking.pdb
