@@ -1,8 +1,0 @@
-C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\ClientSoap\bin\Debug\ClientSoap.exe.config
-C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\ClientSoap\bin\Debug\ClientSoap.exe
-C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\ClientSoap\bin\Debug\ClientSoap.pdb
-C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\ClientSoap\obj\Debug\ClientSoap.csproj.AssemblyReference.cache
-C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\ClientSoap\obj\Debug\ClientSoap.csproj.SuggestedBindingRedirects.cache
-C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\ClientSoap\obj\Debug\ClientSoap.csproj.CoreCompileInputs.cache
-C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\ClientSoap\obj\Debug\ClientSoap.exe
-C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\ClientSoap\obj\Debug\ClientSoap.pdb
