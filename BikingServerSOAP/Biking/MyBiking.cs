@@ -1,33 +1,36 @@
-﻿using Biking.ContractTypes;
-using Biking.ProxyCache;
+﻿using Biking.ProxyCache;
 using GeoCoordinatePortable;
-using System.Text.Json;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
 using System.Globalization;
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Biking
 {
     public class MyBiking : IMyBiking
     {
+        CacheJCDecauxClient cache = new CacheJCDecauxClient();
         private List<Station> stations;
 
         private List<string> trajectory = new List<string>();
 
-
         public string[] getTrajectory(string fromAdress, string toAdress)
         {
+            if (fromAdress == null || toAdress == null || fromAdress == "" || toAdress == "") return trajectory.ToArray();
+
             GeoInfo fromInfo = transformAdressToGeoCoordinate(fromAdress);
             GeoInfo toInfo = transformAdressToGeoCoordinate(toAdress);
 
-            Station firstStation = getClosestStation(fromInfo);
+            Station firstStation = getClosestStation(fromInfo, false);
+            Station lastStation = getClosestStation(toInfo, true);
+
+            if (fromInfo == null || toInfo == null || firstStation == null || lastStation == null) return trajectory.ToArray();
 
             if (distance(fromInfo.getCoordinate(), toInfo.getCoordinate()) < distance(fromInfo.getCoordinate(), firstStation.getCoordinates()))
                 trajectory.AddRange(trajectoryPath(fromInfo.getCoordinate(), toInfo.getCoordinate(), true));
             else
             {
-                Station lastStation = getClosestStation(toInfo);
                 trajectory.AddRange(trajectoryPath(fromInfo.getCoordinate(), firstStation.getCoordinates(), true));
                 trajectory.AddRange(trajectoryPath(firstStation.getCoordinates(), lastStation.getCoordinates(), false));
                 trajectory.AddRange(trajectoryPath(firstStation.getCoordinates(), toInfo.getCoordinate(), true));
@@ -35,29 +38,58 @@ namespace Biking
             return trajectory.ToArray();
         }
 
-        private Station getClosestStation(GeoInfo to)
+        private Station getClosestStation(GeoInfo to, bool isOnBike)
         {
-            if (stations == null) stations = getStations(to.getCity());
+            if (stations == null)
+            {
+                string city = getContractOfCity(to.getCity());
+                if (city == null) return null;
+
+                stations = getStations(to.getCity());
+                if (stations == null) return null;
+            }
 
             Station closest = null;
             double distMin = -1;
             foreach (Station s in stations)
             {
                 if (s == null) continue;
-                double dist = distance(to.getCoordinate(), s.getCoordinates());
-                if (distMin > dist || distMin == -1)
+                if ((!isOnBike && s.mainStands.availabilities.bikes > 0) || (isOnBike && s.mainStands.availabilities.stands > 0))
                 {
-                    distMin = dist;
-                    closest = s;
+                    double dist = distance(to.getCoordinate(), s.getCoordinates());
+                    if (distMin > dist || distMin == -1)
+                    {
+                        distMin = dist;
+                        closest = s;
+                    }
                 }
             }
             return closest;
         }
 
+        private string getContractOfCity(string city)
+        {
+            string response = cache.getContracts();
+            if (response == null) return null;
+            List<Contract> contracts = JsonSerializer.Deserialize<List<Contract>>(response);
+            if (contracts == null) return null;
+
+            foreach (Contract contract in contracts)
+            {
+                if (contract.name.ToLower() == city.ToLower())
+                    return contract.name;
+                if (contract.cities != null)
+                    foreach (string c in contract.cities)
+                        if (city.ToLower() == c.ToLower())
+                            return contract.name;
+            }
+
+            return null;
+        }
+
         private List<string> trajectoryPath(GeoCoordinate from, GeoCoordinate to, bool onFoot)
         {
             List<string> traj = new List<string>();
-
             string locomotion;
             if (onFoot)
             {
@@ -73,7 +105,10 @@ namespace Biking
 
             string start = "&start=" + from.Longitude.ToString(CultureInfo.InvariantCulture) + "," + from.Latitude.ToString(CultureInfo.InvariantCulture);
             string end = "&end=" + to.Longitude.ToString(CultureInfo.InvariantCulture) + "," + to.Latitude.ToString(CultureInfo.InvariantCulture);
-            string response = APICall("https://api.openrouteservice.org/v2/directions/" + locomotion, "api_key=" + API_OpenStreetMap.key + start + end).Result;
+
+            Task<string> responsebody = APICall("https://api.openrouteservice.org/v2/directions/" + locomotion, "api_key=" + API_OpenStreetMap.key + start + end);
+            if (responsebody == null) return new List<string>();
+            string response = responsebody.Result;
 
             Trajectory r = JsonSerializer.Deserialize<Trajectory>(response);
 
@@ -99,23 +134,20 @@ namespace Biking
 
         private GeoInfo transformAdressToGeoCoordinate(string adress)
         {
-            string response = APICall("https://api.openrouteservice.org/geocode/search", "api_key=" + API_OpenStreetMap.key + "&text=" + adress).Result;
+            Task<string> responsebody = APICall("https://api.openrouteservice.org/geocode/search", "api_key=" + API_OpenStreetMap.key + "&text=" + adress);
+
+            if (responsebody == null) return null;
+            string response = responsebody.Result;
+
             Adress r = JsonSerializer.Deserialize<Adress>(response);
             if (r.features.Length == 0) return new GeoInfo(-79.4063075, 0.3149312, null);
             return new GeoInfo(r.features[0].geometry.coordinates[1], r.features[0].geometry.coordinates[0], r.geocoding.query.parsed_text.city);
         }
 
-        private List<Contract> getContracts()
-        {
-            CacheJCDecauxClient cache = new CacheJCDecauxClient();
-            string response = cache.getContracts();
-            return JsonSerializer.Deserialize<List<Contract>>(response);
-        }
-
         private List<Station> getStations(string contract)
         {
-            CacheJCDecauxClient cache = new CacheJCDecauxClient();
             string response = cache.getAllStationsOfContract(contract);
+            if (response == null) return null;
             return JsonSerializer.Deserialize<List<Station>>(response);
         }
 
@@ -123,9 +155,9 @@ namespace Biking
         {
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(url + "?" + query);
-            response.EnsureSuccessStatusCode();
+            if (!response.IsSuccessStatusCode)
+                return null;
             return await response.Content.ReadAsStringAsync();
-
         }
     }
 }

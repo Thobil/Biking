@@ -1,9 +1,5 @@
 ﻿using GeoCoordinatePortable;
 
-public class Contract
-{
-    public string name { get; set; }
-}
 public class Station
 {
     public int number { get; set; }
@@ -43,10 +39,6 @@ public class Availabilities
 {
     public int bikes { get; set; }
     public int stands { get; set; }
-    public int mechanicalBikes { get; set; }
-    public int electricalBikes { get; set; }
-    public int electricalInternalBatteryBikes { get; set; }
-    public int electricalRemovableBatteryBikes { get; set; }
 }
 
 public class Mainstands

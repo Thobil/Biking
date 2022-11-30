@@ -26,9 +26,11 @@ namespace JCDecauxCache
         private string contractApiCallAndUpdateCache()
         {
             string query = "apiKey=" + API_JCDecaux.Key;
-            string responseBody = JCDecauxAPICall("https://api.jcdecaux.com/vls/v3/contracts", query).Result;
-            contracts.update(responseBody);
-            return responseBody;
+            Task<string> responsebody = JCDecauxAPICall("https://api.jcdecaux.com/vls/v3/contracts", query);
+            if (responsebody == null) return null;
+            string response = responsebody.Result;
+            contracts.update(response);
+            return response;
         }
 
         public string getAllStationsOfContract(string contract)
@@ -51,9 +53,11 @@ namespace JCDecauxCache
         private string stationApiCallAndUpdateCache(string contract, StationCache s)
         {
             string query = "contract=" + contract + "&apiKey=" + API_JCDecaux.Key;
-            string responsebody = JCDecauxAPICall("https://api.jcdecaux.com/vls/v3/stations", query).Result;
-            s.update(responsebody);
-            return responsebody;
+            Task<string> responsebody = JCDecauxAPICall("https://api.jcdecaux.com/vls/v3/stations", query);
+            if (responsebody == null) return null;
+            string response = responsebody.Result;
+            s.update(response);
+            return response;
         }
 
 
@@ -61,7 +65,7 @@ namespace JCDecauxCache
         {
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(url + "?" + query);
-            response.EnsureSuccessStatusCode();
+            if (!response.IsSuccessStatusCode) return null;
             return await response.Content.ReadAsStringAsync();
         }
     }
