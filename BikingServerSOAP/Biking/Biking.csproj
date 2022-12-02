@@ -204,10 +204,10 @@
     </Compile>
     <Compile Include="geoInfo.cs" />
     <Compile Include="IMyBiking.cs" />
-    <Compile Include="JsonClassesAdressToCoord.cs" />
-    <Compile Include="JsonClassesContract.cs" />
-    <Compile Include="JsonClassesStation.cs" />
-    <Compile Include="JsonClassesTrajectory.cs" />
+    <Compile Include="JsonClasses\JsonClassesAdressToCoord.cs" />
+    <Compile Include="JsonClasses\JsonClassesContract.cs" />
+    <Compile Include="JsonClasses\JsonClassesStation.cs" />
+    <Compile Include="JsonClasses\JsonClassesTrajectory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MyBiking.cs" />
   </ItemGroup>
@@ -240,6 +240,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <VSToolsPath Condition="'$(VSToolsPath)' == '' and '$(VisualStudioVersion)' != '' and '$(VisualStudioVersion)' != '11.0'">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

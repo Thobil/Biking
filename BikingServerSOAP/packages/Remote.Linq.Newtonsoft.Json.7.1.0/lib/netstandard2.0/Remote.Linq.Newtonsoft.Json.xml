@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Remote.Linq.Newtonsoft.Json</name>
+    </assembly>
+    <members>
+        <member name="M:Remote.Linq.Newtonsoft.Json.JsonSerializerSettingsExtensions.ConfigureRemoteLinq``1(``0,Aqua.Newtonsoft.Json.KnownTypesRegistry)">
+            <summary>
+            Sets the <see cref="T:Remote.Linq.Newtonsoft.Json.ContractResolvers.RemoteLinqContractResolver"/> in <see cref="T:Newtonsoft.Json.JsonSerializerSettings"/>,
+            decorating a previousely set <see cref="T:Newtonsoft.Json.Serialization.IContractResolver"/> if required.
+            </summary>
+        </member>
+        <member name="M:Remote.Linq.Newtonsoft.Json.JsonSerializerSettingsExtensions.CreateRemoteLinqConfiguration(Newtonsoft.Json.JsonSerializerSettings,Aqua.Newtonsoft.Json.KnownTypesRegistry)">
+            <summary>
+            Create a new instance of <see cref="T:Remote.Linq.Newtonsoft.Json.RemoteLinqJsonSerializerSettings"/>, based on the <see cref="T:Newtonsoft.Json.JsonSerializerSettings"/> speficied.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.CompilerServices.IsExternalInit">
+            <summary>
+            Polyfill type for "Error CS0518 - Predefined type 'System.Runtime.CompilerServices.IsExternalInit' is not defined or imported".
+            </summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.ValidatedNotNullAttribute">
+            <summary>
+            Indicates to Code Analysis that a method validates a particular parameter.
+            </summary>
+        </member>
+        <member name="M:_Check.CheckNotNull``1(``0,System.String)">
+            <summary>
+              Throws an <see cref="T:System.ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>,
+              otherwise the <paramref name="value"/> is returned.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="value"/> is <see langword="null"/>.</exception>
+            <returns>The <paramref name="value"/> unless it's <see langword="null"/>.</returns>
+        </member>
+        <member name="M:_Check.AssertNotNull``1(``0,System.String)">
+            <summary>
+              Throws an <see cref="T:System.ArgumentNullException"/> if <paramref name="value"/> is <see langword="null"/>.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="value"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:_Check.CheckNotNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+              Throws if <paramref name="items"/> is either <see langword="null"/> or empty.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="items"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentException">If <paramref name="items"/> is empty.</exception>
+            <returns>The <paramref name="items"/> unless it's <see langword="null"/>.</returns>
+        </member>
+        <member name="M:_Check.CheckNotNullOrEmpty(System.String,System.String)">
+            <summary>
+              Throws if <paramref name="value"/> is either <see langword="null"/> or empty.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="items"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentException">If <paramref name="items"/> is empty.</exception>
+            <returns>The <paramref name="items"/> unless it's <see langword="null"/>.</returns>
+        </member>
+        <member name="M:_Check.AssertNotNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+              Throws if <paramref name="items"/> is either <see langword="null"/> or empty.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="items"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentException">If <paramref name="items"/> is empty.</exception>
+        </member>
+        <member name="M:_Check.CheckItemsNotNull``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+              Throws if either <paramref name="items"/> or any element contained is <see langword="null"/>.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="items"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentException">If any element in <paramref name="items"/> is <see langword="null"/>.</exception>
+            <returns>The <paramref name="items"/> unless it or any element contained is <see langword="null"/>.</returns>
+        </member>
+        <member name="M:_Check.AssertItemsNotNull``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+              Throws if either <paramref name="items"/> or any element contained is <see langword="null"/>.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="items"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentException">If any element in <paramref name="items"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:_Check.AssertItemsNotNullOrEmpty(System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+              Throws if either <paramref name="items"/> or any element contained is <see langword="null"/> or empty.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="items"/> is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentException">If any element in <paramref name="items"/> is <see langword="null"/> or empty.</exception>
+        </member>
+    </members>
+</doc>

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace JCDecauxCache
 {
@@ -55,7 +57,7 @@ namespace JCDecauxCache
             string query = "contract=" + contract + "&apiKey=" + API_JCDecaux.Key;
             Task<string> responsebody = JCDecauxAPICall("https://api.jcdecaux.com/vls/v3/stations", query);
             if (responsebody == null) return null;
-            string response = responsebody.Result;
+            string response = clean(responsebody.Result);
             s.update(response);
             return response;
         }
@@ -67,6 +69,12 @@ namespace JCDecauxCache
             HttpResponseMessage response = await client.GetAsync(url + "?" + query);
             if (!response.IsSuccessStatusCode) return null;
             return await response.Content.ReadAsStringAsync();
+        }
+
+        private string clean(string s)
+        {
+            // TODO
+            return s;
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Biking
                 string city = getContractOfCity(to.getCity());
                 if (city == null) return null;
 
-                stations = getStations(to.getCity());
+                stations = getStations(city);
                 if (stations == null) return null;
             }
 
@@ -79,11 +79,12 @@ namespace Biking
                 if (contract.name.ToLower() == city.ToLower())
                     return contract.name;
                 if (contract.cities != null)
-                    foreach (string c in contract.cities)
-                        if (city.ToLower() == c.ToLower())
+                    foreach (string cc in contract.cities)
+                    {
+                        if (city.ToLower() == cc.ToLower())
                             return contract.name;
+                    }
             }
-
             return null;
         }
 
