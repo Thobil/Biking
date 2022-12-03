@@ -1,5 +1,6 @@
 ﻿using Biking.ProxyCache;
 using GeoCoordinatePortable;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
@@ -25,16 +26,37 @@ namespace Biking
             Station firstStation = getClosestStation(fromInfo, false);
             Station lastStation = getClosestStation(toInfo, true);
 
-            if (fromInfo == null || toInfo == null || firstStation == null || lastStation == null) return trajectory.ToArray();
+            if (fromInfo == null || toInfo == null) return trajectory.ToArray();
 
-            if (distance(fromInfo.getCoordinate(), toInfo.getCoordinate()) < distance(fromInfo.getCoordinate(), firstStation.getCoordinates()))
-                trajectory.AddRange(trajectoryPath(fromInfo.getCoordinate(), toInfo.getCoordinate(), true));
+            TrajectoryInfos walk = trajectoryPath(fromInfo.getCoordinate(), toInfo.getCoordinate(), true);
+
+            if(firstStation == null || lastStation == null)
+            {
+                trajectory.Add("Total duration : " + Math.Ceiling(walk.duration / 60) + " min\nTotal distance : " + Math.Ceiling(walk.distance / 100) / 10 + " km");
+                trajectory.AddRange(walk.instructions);
+                return trajectory.ToArray();
+            }
+
+            TrajectoryInfos walk1 = trajectoryPath(fromInfo.getCoordinate(), firstStation.getCoordinates(), true);
+            TrajectoryInfos bike = trajectoryPath(firstStation.getCoordinates(), lastStation.getCoordinates(), false);
+            TrajectoryInfos walk2 = trajectoryPath(lastStation.getCoordinates(), toInfo.getCoordinate(), true);
+
+            float totalDuration = walk1.duration + walk2.duration + bike.duration;
+            float totalDistance = walk1.distance + walk2.distance + bike.distance;
+
+            if (walk.duration <= totalDuration)
+            {
+                trajectory.Add("Total duration : " + Math.Ceiling(walk.duration/60) + " min\nTotal distance : " + Math.Ceiling(walk.distance/100)/10 + " km");
+                trajectory.AddRange(walk.instructions);
+            }
             else
             {
-                trajectory.AddRange(trajectoryPath(fromInfo.getCoordinate(), firstStation.getCoordinates(), true));
-                trajectory.AddRange(trajectoryPath(firstStation.getCoordinates(), lastStation.getCoordinates(), false));
-                trajectory.AddRange(trajectoryPath(firstStation.getCoordinates(), toInfo.getCoordinate(), true));
+                trajectory.Add("Total duration : " + Math.Ceiling(totalDuration /60) + " min\nTotal distance : " + Math.Ceiling(totalDistance /100)/10 + " km");
+                trajectory.AddRange(walk1.instructions);
+                trajectory.AddRange(bike.instructions);
+                trajectory.AddRange(walk2.instructions);
             }
+
             return trajectory.ToArray();
         }
 
@@ -69,6 +91,7 @@ namespace Biking
 
         private string getContractOfCity(string city)
         {
+            if (city == null) return null;
             string response = cache.getContracts();
             if (response == null) return null;
             List<Contract> contracts = JsonSerializer.Deserialize<List<Contract>>(response);
@@ -88,7 +111,7 @@ namespace Biking
             return null;
         }
 
-        private List<string> trajectoryPath(GeoCoordinate from, GeoCoordinate to, bool onFoot)
+        private TrajectoryInfos trajectoryPath(GeoCoordinate from, GeoCoordinate to, bool onFoot)
         {
             List<string> traj = new List<string>();
             string locomotion;
@@ -108,7 +131,7 @@ namespace Biking
             string end = "&end=" + to.Longitude.ToString(CultureInfo.InvariantCulture) + "," + to.Latitude.ToString(CultureInfo.InvariantCulture);
 
             Task<string> responsebody = APICall("https://api.openrouteservice.org/v2/directions/" + locomotion, "api_key=" + API_OpenStreetMap.key + start + end);
-            if (responsebody == null) return new List<string>();
+            if (responsebody == null) return new TrajectoryInfos(9999999,9999999, new List<string>());
             string response = responsebody.Result;
 
             Trajectory r = JsonSerializer.Deserialize<Trajectory>(response);
@@ -120,12 +143,12 @@ namespace Biking
                     foreach (Step s in r.features[0].properties.segments[0].steps)
                     {
                         if (s == null) continue;
-                        string direction = "Instruction : " + s.instruction + "\nDistance : " + s.distance + "\nDuration " + s.duration;
+                        string direction = "Instruction : " + s.instruction + "\nDistance : " + Math.Ceiling(s.distance) + " m \nDuration " + Math.Ceiling(s.duration/60) + " min";
                         traj.Add(direction);
                     }
                 }
             }
-            return traj;
+            return new TrajectoryInfos(r.features[0].properties.summary.duration, r.features[0].properties.summary.distance, traj);
         }
 
         private double distance(GeoCoordinate a, GeoCoordinate b)
@@ -148,8 +171,14 @@ namespace Biking
         private List<Station> getStations(string contract)
         {
             string response = cache.getAllStationsOfContract(contract);
-            if (response == null) return null;
-            return JsonSerializer.Deserialize<List<Station>>(response);
+            try
+            {
+                return JsonSerializer.Deserialize<List<Station>>(response);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         static async Task<string> APICall(string url, string query)

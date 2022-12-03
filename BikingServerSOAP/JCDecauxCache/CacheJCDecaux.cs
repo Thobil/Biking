@@ -57,7 +57,8 @@ namespace JCDecauxCache
             string query = "contract=" + contract + "&apiKey=" + API_JCDecaux.Key;
             Task<string> responsebody = JCDecauxAPICall("https://api.jcdecaux.com/vls/v3/stations", query);
             if (responsebody == null) return null;
-            string response = clean(responsebody.Result);
+            string response = responsebody.Result;
+            if (response == "{ \"error\" : \"Specified contract does not exist\" }") return null;
             s.update(response);
             return response;
         }
@@ -69,12 +70,6 @@ namespace JCDecauxCache
             HttpResponseMessage response = await client.GetAsync(url + "?" + query);
             if (!response.IsSuccessStatusCode) return null;
             return await response.Content.ReadAsStringAsync();
-        }
-
-        private string clean(string s)
-        {
-            // TODO
-            return s;
         }
     }
 }
