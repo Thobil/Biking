@@ -6,7 +6,7 @@
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{677C75D3-CE30-43A7-A005-3E5C9C4C8900}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>JCDecauxCache</RootNamespace>
     <AssemblyName>JCDecauxCache</AssemblyName>
@@ -41,6 +41,9 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>7.3</LangVersion>
     <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>System.ServiceModel.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Aqua, Version=5.2.0.0, Culture=neutral, PublicKeyToken=82d6c51b67e8b655, processorArchitecture=MSIL">
@@ -90,6 +93,7 @@
     <Compile Include="ICacheJCDecaux.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CacheJCDecaux.cs" />
+    <Compile Include="SelfHosted.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

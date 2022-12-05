@@ -13,7 +13,6 @@ namespace Biking
     {
         CacheJCDecauxClient cache = new CacheJCDecauxClient();
         private List<Station> stations;
-
         private List<string> trajectory = new List<string>();
 
         public string[] getTrajectory(string fromAdress, string toAdress)
@@ -23,10 +22,10 @@ namespace Biking
             GeoInfo fromInfo = transformAdressToGeoCoordinate(fromAdress);
             GeoInfo toInfo = transformAdressToGeoCoordinate(toAdress);
 
+            if (fromInfo == null || toInfo == null) return trajectory.ToArray();
+
             Station firstStation = getClosestStation(fromInfo, false);
             Station lastStation = getClosestStation(toInfo, true);
-
-            if (fromInfo == null || toInfo == null) return trajectory.ToArray();
 
             TrajectoryInfos walk = trajectoryPath(fromInfo.getCoordinate(), toInfo.getCoordinate(), true);
 
@@ -126,7 +125,6 @@ namespace Biking
                 traj.Add("---------------Bike---------------");
             }
 
-
             string start = "&start=" + from.Longitude.ToString(CultureInfo.InvariantCulture) + "," + from.Latitude.ToString(CultureInfo.InvariantCulture);
             string end = "&end=" + to.Longitude.ToString(CultureInfo.InvariantCulture) + "," + to.Latitude.ToString(CultureInfo.InvariantCulture);
 
@@ -164,7 +162,7 @@ namespace Biking
             string response = responsebody.Result;
 
             Adress r = JsonSerializer.Deserialize<Adress>(response);
-            if (r.features.Length == 0) return new GeoInfo(-79.4063075, 0.3149312, null);
+            if (r.features.Length == 0) return null;
             return new GeoInfo(r.features[0].geometry.coordinates[1], r.features[0].geometry.coordinates[0], r.geocoding.query.parsed_text.city);
         }
 

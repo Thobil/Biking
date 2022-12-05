@@ -6,7 +6,7 @@
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{F2587D7D-5135-4CEF-AAFD-AC5BE67B2886}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Biking</RootNamespace>
     <AssemblyName>Biking</AssemblyName>
@@ -32,6 +32,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>System.ServiceModel.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GeoCoordinate.NetCore, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
@@ -196,13 +199,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API_OpenStreetMap.cs" />
+    <Compile Include="usefullClasses\API_OpenStreetMap.cs" />
     <Compile Include="Connected Services\ProxyCache\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="geoInfo.cs" />
+    <Compile Include="usefullClasses\geoInfo.cs" />
     <Compile Include="IMyBiking.cs" />
     <Compile Include="JsonClasses\JsonClassesAdressToCoord.cs" />
     <Compile Include="JsonClasses\JsonClassesContract.cs" />
@@ -210,7 +213,8 @@
     <Compile Include="JsonClasses\JsonClassesTrajectory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MyBiking.cs" />
-    <Compile Include="TrajectoryInfos.cs" />
+    <Compile Include="SelfHosted.cs" />
+    <Compile Include="usefullClasses\TrajectoryInfos.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
