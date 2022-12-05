@@ -2,7 +2,7 @@
 Réalisé par Thomas Billequin
 
 ## Biking qu'est ce que c'est ?
-  Biking est un projet scolaire ayant pour objectif la création de serveurs, de clients et l'utilisation d'API externes. Ainsi celui ci s'articule autour de l'utilisation des données de JCDecaux. L'objectif est de créé une application qui permettent de trouver le trajet entre deux adresses en determinant si un vélo JCDecaux est nécéssaire pour le trajet. Celle-ci renvoie ensuite les instructions pour le trajet optimal au client.
+  Biking est un projet scolaire ayant pour objectif la création de serveurs, de clients et l'utilisation d'API externes. Ainsi celui-ci s'articule autour de l'utilisation des données de JCDecaux. L'objectif est de créer une application qui permet de trouver le trajet entre deux adresses en déterminant si un vélo JCDecaux est nécessaire pour le trajet. Celle-ci renvoie ensuite les instructions pour le trajet optimal au client.
 
 ## Lancer le projet
 ### Lancer le serveur Soap
