@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="getTrajectoryResult" type="{http://schemas.microsoft.com/2003/10/Serialization/Arrays}ArrayOfstring" minOccurs="0"/&gt;
+ *         &lt;element name="getTrajectoryResult" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,17 +36,17 @@ import javax.xml.bind.annotation.XmlType;
 public class GetTrajectoryResponse {
 
     @XmlElementRef(name = "getTrajectoryResult", namespace = "http://tempuri.org/", type = JAXBElement.class, required = false)
-    protected JAXBElement<ArrayOfstring> getTrajectoryResult;
+    protected JAXBElement<String> getTrajectoryResult;
 
     /**
      * Obtient la valeur de la propriété getTrajectoryResult.
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link ArrayOfstring }{@code >}
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public JAXBElement<ArrayOfstring> getGetTrajectoryResult() {
+    public JAXBElement<String> getGetTrajectoryResult() {
         return getTrajectoryResult;
     }
 
@@ -55,10 +55,10 @@ public class GetTrajectoryResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link ArrayOfstring }{@code >}
+     *     {@link JAXBElement }{@code <}{@link String }{@code >}
      *     
      */
-    public void setGetTrajectoryResult(JAXBElement<ArrayOfstring> value) {
+    public void setGetTrajectoryResult(JAXBElement<String> value) {
         this.getTrajectoryResult = value;
     }
 

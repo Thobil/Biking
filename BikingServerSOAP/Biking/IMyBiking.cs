@@ -11,7 +11,7 @@ namespace Biking
     public interface IMyBiking
     {
         [OperationContract]
-        string[] getTrajectory(string fromAdress, string toAdress);
+        string getTrajectory(string fromAdress, string toAdress);
 
     }
 }

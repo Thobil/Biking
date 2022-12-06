@@ -26,4 +26,8 @@ C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\bin\Deb
 C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\bin\Debug\Biking.exe.config
 C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\obj\Debug\Biking.csproj.SuggestedBindingRedirects.cache
 C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\obj\Debug\Biking.exe
-C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\obj\Debug\Biking.exe.config
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\bin\Debug\Apache.NMS.ActiveMQ.dll
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\bin\Debug\Apache.NMS.dll
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\bin\Debug\ICSharpCode.SharpZipLib.pdb
+C:\Users\bille\OneDrive\Bureau\Projet_SI4\Biking\BikingServerSOAP\Biking\bin\Debug\ICSharpCode.SharpZipLib.xml

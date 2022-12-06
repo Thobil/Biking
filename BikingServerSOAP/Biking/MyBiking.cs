@@ -1,4 +1,5 @@
-﻿using Biking.ProxyCache;
+﻿using ActivemqProducer;
+using Biking.ProxyCache;
 using GeoCoordinatePortable;
 using System;
 using System.Collections.Generic;
@@ -15,14 +16,16 @@ namespace Biking
         private List<Station> stations;
         private List<string> trajectory = new List<string>();
 
-        public string[] getTrajectory(string fromAdress, string toAdress)
+        public string getTrajectory(string fromAdress, string toAdress)
         {
-            if (fromAdress == null || toAdress == null || fromAdress == "" || toAdress == "") return trajectory.ToArray();
+            QueueJCDecaux queue = new QueueJCDecaux();
+
+            if (fromAdress == null || toAdress == null || fromAdress == "" || toAdress == "") return queue.sendMessage(trajectory.ToArray());
 
             GeoInfo fromInfo = transformAdressToGeoCoordinate(fromAdress);
             GeoInfo toInfo = transformAdressToGeoCoordinate(toAdress);
 
-            if (fromInfo == null || toInfo == null) return trajectory.ToArray();
+            if (fromInfo == null || toInfo == null) return queue.sendMessage(trajectory.ToArray());
 
             Station firstStation = getClosestStation(fromInfo, false);
             Station lastStation = getClosestStation(toInfo, true);
@@ -33,7 +36,7 @@ namespace Biking
             {
                 trajectory.Add("Total duration : " + Math.Ceiling(walk.duration / 60) + " min\nTotal distance : " + Math.Ceiling(walk.distance / 100) / 10 + " km");
                 trajectory.AddRange(walk.instructions);
-                return trajectory.ToArray();
+                return queue.sendMessage(trajectory.ToArray());
             }
 
             TrajectoryInfos walk1 = trajectoryPath(fromInfo.getCoordinate(), firstStation.getCoordinates(), true);
@@ -56,7 +59,7 @@ namespace Biking
                 trajectory.AddRange(walk2.instructions);
             }
 
-            return trajectory.ToArray();
+            return queue.sendMessage(trajectory.ToArray());
         }
 
         private Station getClosestStation(GeoInfo to, bool isOnBike)

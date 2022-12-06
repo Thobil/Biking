@@ -28,13 +28,13 @@ public interface IMyBiking {
      * @param fromAdress
      * @param toAdress
      * @return
-     *     returns com.soap.ws.client.generated.ArrayOfstring
+     *     returns java.lang.String
      */
     @WebMethod(action = "http://tempuri.org/IMyBiking/getTrajectory")
     @WebResult(name = "getTrajectoryResult", targetNamespace = "http://tempuri.org/")
     @RequestWrapper(localName = "getTrajectory", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.GetTrajectory")
     @ResponseWrapper(localName = "getTrajectoryResponse", targetNamespace = "http://tempuri.org/", className = "com.soap.ws.client.generated.GetTrajectoryResponse")
-    public ArrayOfstring getTrajectory(
+    public String getTrajectory(
         @WebParam(name = "fromAdress", targetNamespace = "http://tempuri.org/")
         String fromAdress,
         @WebParam(name = "toAdress", targetNamespace = "http://tempuri.org/")
