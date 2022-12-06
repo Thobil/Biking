@@ -16,6 +16,10 @@ namespace Biking
         private List<Station> stations;
         private List<string> trajectory = new List<string>();
 
+        /**
+         * Only method send to the Client 
+         * Return the name of the queue where are traject instructions
+         */
         public string getTrajectory(string fromAdress, string toAdress)
         {
             QueueJCDecaux queue = new QueueJCDecaux();
@@ -62,6 +66,9 @@ namespace Biking
             return queue.sendMessage(trajectory.ToArray());
         }
 
+        /**
+         * Return the closest station that has available bikes if isOnBike == false and the closest station that has available slots if isOnBike == true
+         */
         private Station getClosestStation(GeoInfo to, bool isOnBike)
         {
             if (stations == null)
@@ -91,6 +98,9 @@ namespace Biking
             return closest;
         }
 
+        /**
+         * Return the name of the contract if the city has a contract
+         */
         private string getContractOfCity(string city)
         {
             if (city == null) return null;
@@ -113,6 +123,9 @@ namespace Biking
             return null;
         }
 
+        /**
+         * Get and return the informations about the trajectory
+         */
         private TrajectoryInfos trajectoryPath(GeoCoordinate from, GeoCoordinate to, bool onFoot)
         {
             List<string> traj = new List<string>();
@@ -152,11 +165,17 @@ namespace Biking
             return new TrajectoryInfos(r.features[0].properties.summary.duration, r.features[0].properties.summary.distance, traj);
         }
 
+        /**
+         * Return the distance between 2 points
+         */
         private double distance(GeoCoordinate a, GeoCoordinate b)
         {
             return a.GetDistanceTo(b);
         }
 
+        /**
+         * From any adress return associate coordinates
+         */
         private GeoInfo transformAdressToGeoCoordinate(string adress)
         {
             Task<string> responsebody = APICall("https://api.openrouteservice.org/geocode/search", "api_key=" + API_OpenStreetMap.key + "&text=" + adress);
@@ -169,6 +188,9 @@ namespace Biking
             return new GeoInfo(r.features[0].geometry.coordinates[1], r.features[0].geometry.coordinates[0], r.geocoding.query.parsed_text.city);
         }
 
+        /**
+         * Return all stations of JCDecaux
+         */
         private List<Station> getStations(string contract)
         {
             string response = cache.getAllStationsOfContract(contract);
@@ -182,6 +204,9 @@ namespace Biking
             }
         }
 
+        /**
+         * Call API and return json
+         */
         static async Task<string> APICall(string url, string query)
         {
             HttpClient client = new HttpClient();

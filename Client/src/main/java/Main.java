@@ -7,18 +7,6 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
-
-        //ArrayOfstring s = iMyBiking.getTrajectory("lyon", "paris");
-        //ArrayOfstring s = iMyBiking.getTrajectory("rue pelisson villeurbanne", "rue tronchet lyon");
-        //ArrayOfstring s = iMyBiking.getTrajectory("Rue du repos besancon", "Rue charles nodier besancon");
-        //ArrayOfstring s = iMyBiking.getTrajectory("xhxblkxfblkjbwfblbk", "4");
-        //ArrayOfstring s = iMyBiking.getTrajectory("Lyon Part-Dieu", "Faverges, 38510 Creys-Mepieu");
-        //ArrayOfstring s = iMyBiking.getTrajectory("3 Place de la République, Mulhouse", "BOULEVARD CHARLES STOESSEL, Mulhouse");
-        //ArrayOfstring s = iMyBiking.getTrajectory(null,null);
-        //ArrayOfstring s = iMyBiking.getTrajectory("26 rue du faix aux chiens saint hilaire de riez", "Faverge 38510");
-
-
         thread(new HelloWorldConsumer(), false);
     }
 
